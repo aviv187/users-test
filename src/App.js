@@ -11,11 +11,14 @@ import {
   set,
   update,
 } from "firebase/database";
+import EntrancePage from "./pages/entrance";
 
 function App({ firebase, db }) {
   const [user, setUser] = useState(undefined);
+  const [userData, setUserData] = useState(null);
 
   const [signingIn, setSigningIn] = useState(true);
+  const [showUserDetailsForm, setShowUserDetailsForm] = useState(false);
 
   const [ip, setIP] = useState("detecting");
 
@@ -44,13 +47,16 @@ function App({ firebase, db }) {
               userAgent: navigator.userAgent,
             });
             const data = snapshot.val();
+            setUserData(data);
 
-            console.log("data", data);
+            if (!data.email || !data.displayName) {
+              setShowUserDetailsForm(true);
+            }
           } else {
             console.log(
               "user does not exist, show registration form and create user in db"
             );
-
+            setShowUserDetailsForm(true);
             set(userRef, { visits: 1, created: new Date() * 1, online: 1 });
           }
         });
@@ -81,11 +87,19 @@ function App({ firebase, db }) {
     }
   }, [user, ip, db]);
 
-  return (
-    <div>
-      {signingIn && "signingIn"}
-      {user?.uid}
-    </div>
+  if (signingIn) {
+    return <div>signingIn</div>;
+  }
+
+  return showUserDetailsForm ? (
+    <EntrancePage
+      db={db}
+      user={user}
+      setUserData={setUserData}
+      closeDetailsPage={() => setShowUserDetailsForm(false)}
+    />
+  ) : (
+    <div>show main page {userData?.displayName}</div>
   );
 }
 
