@@ -12,6 +12,7 @@ import {
   update,
 } from "firebase/database";
 import EntrancePage from "./pages/entrance";
+import MainPage from "./pages/main";
 
 function App({ firebase, db }) {
   const [user, setUser] = useState(undefined);
@@ -99,7 +100,7 @@ function App({ firebase, db }) {
       closeDetailsPage={() => setShowUserDetailsForm(false)}
     />
   ) : (
-    <div>show main page {userData?.displayName}</div>
+    <MainPage userData={userData} user={user} db={db} />
   );
 }
 
