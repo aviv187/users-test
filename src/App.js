@@ -17,6 +17,17 @@ function App({ firebase, db }) {
 
   const [signingIn, setSigningIn] = useState(true);
 
+  const [ip, setIP] = useState("detecting");
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://api.ipify.org?format=jsonp";
+    window.callback = (data) => {
+      setIP(data?.ip || "unknown");
+    };
+    document.head.appendChild(script);
+  }, []);
+
   useEffect(() => {
     const auth = getAuth(firebase);
     onAuthStateChanged(auth, (user_) => {
@@ -62,6 +73,13 @@ function App({ firebase, db }) {
       setSigningIn(false);
     }
   }, [user, db, firebase]);
+
+  useEffect(() => {
+    if (user != null && ip !== "unknown") {
+      const userRef = ref(db, `users/${user.uid}`);
+      update(userRef, { ip });
+    }
+  }, [user, ip, db]);
 
   return (
     <div>
