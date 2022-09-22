@@ -13,6 +13,7 @@ import {
 } from "firebase/database";
 import EntrancePage from "./pages/entrance";
 import MainPage from "./pages/main";
+import LoadingPage from "./pages/loading";
 
 function App({ firebase, db }) {
   const [user, setUser] = useState(undefined);
@@ -91,7 +92,7 @@ function App({ firebase, db }) {
   }, [user, ip, db]);
 
   if (signingIn) {
-    return <div>signingIn</div>;
+    return <LoadingPage />;
   }
 
   return showUserDetailsForm ? (

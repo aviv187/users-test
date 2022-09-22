@@ -3,5 +3,17 @@ body,
 #root {
   height: 100%;
   margin: 0;
-  text-align: center;
+  color: #333;
+}
+
+#root {
+  background-image: linear-gradient(lightskyblue, plum);
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
