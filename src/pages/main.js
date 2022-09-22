@@ -3,8 +3,9 @@ import "./main.css";
 
 import { onValue, ref } from "firebase/database";
 import Welcome from "../components/welcome";
+import ChangeDetailsButton from "../components/changeDetailsButton";
 
-function MainPage({ userData, user, db }) {
+function MainPage({ userData, user, db, changeDetails = { changeDetails } }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -32,6 +33,8 @@ function MainPage({ userData, user, db }) {
   return (
     <div className="main-page">
       <Welcome userData={userData} />
+      <ChangeDetailsButton onClick={changeDetails} />
+
       {users.map((user) => {
         return <div>{user.displayName}</div>;
       })}

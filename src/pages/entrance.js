@@ -3,7 +3,7 @@ import React from "react";
 import { ref, update } from "firebase/database";
 import UserDetailsForm from "../components/userDetailsForm";
 
-function EntrancePage({ db, user, setUserData, closeDetailsPage }) {
+function EntrancePage({ db, user, setUserData, closeDetailsPage, userData }) {
   const _update = async ({ displayName, email }) => {
     const userRef = ref(db, `users/${user.uid}`);
     const changeObj = { displayName, email, lastUpdate: new Date() * 1 };
@@ -17,7 +17,11 @@ function EntrancePage({ db, user, setUserData, closeDetailsPage }) {
 
   return (
     <div className="center">
-      <UserDetailsForm updateUser={_update} />
+      <UserDetailsForm
+        updateUser={_update}
+        defaultDisplayName={userData?.displayName ?? ""}
+        defaultEmail={userData?.email ?? ""}
+      />
     </div>
   );
 }

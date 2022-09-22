@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "./userDetailsForm.css";
 
-function UserDetailsForm({ updateUser }) {
+function UserDetailsForm({ updateUser, defaultDisplayName, defaultEmail }) {
   const emailRef = useRef();
   const displayNameRef = useRef();
 
@@ -23,10 +23,14 @@ function UserDetailsForm({ updateUser }) {
       <div className="title">Please enter your name and email</div>
 
       <div className="input-label">Name:</div>
-      <input type="text" ref={displayNameRef} />
+      <input
+        type="text"
+        ref={displayNameRef}
+        defaultValue={defaultDisplayName}
+      />
 
       <div className="input-label">Email:</div>
-      <input type="text" ref={emailRef} />
+      <input type="text" ref={emailRef} defaultValue={defaultEmail} />
 
       <div className="submit-button-container">
         <button className="submit-button" onClick={onSubmit}>

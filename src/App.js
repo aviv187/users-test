@@ -110,10 +110,16 @@ function App({ firebase, db }) {
       db={db}
       user={user}
       setUserData={setUserData}
+      userData={userData}
       closeDetailsPage={() => setShowUserDetailsForm(false)}
     />
   ) : (
-    <MainPage userData={userData} user={user} db={db} />
+    <MainPage
+      userData={userData}
+      user={user}
+      db={db}
+      changeDetails={() => setShowUserDetailsForm(true)}
+    />
   );
 }
 
