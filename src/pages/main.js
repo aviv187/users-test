@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
+import "./main.css";
 
 import { onValue, ref } from "firebase/database";
+import Welcome from "../components/welcome";
 
 function MainPage({ userData, user, db }) {
   const [users, setUsers] = useState([]);
@@ -28,9 +30,8 @@ function MainPage({ userData, user, db }) {
   }, [user, db]);
 
   return (
-    <div>
-      <div>hey {userData?.displayName}</div>
-
+    <div className="main-page">
+      <Welcome userData={userData} />
       {users.map((user) => {
         return <div>{user.displayName}</div>;
       })}
