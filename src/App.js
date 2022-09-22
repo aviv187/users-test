@@ -41,13 +41,18 @@ function App({ firebase, db }) {
         const userRef = ref(db, `users/${user_.uid}`);
         const snapshot = await get(userRef);
 
+        const currentDate = new Date() * 1;
+        const userObj = {
+          lastVisited: currentDate,
+          lastUpdate: currentDate,
+          userAgent: navigator.userAgent,
+        };
+
         if (snapshot.exists()) {
           update(userRef, {
-            lastVisited: new Date() * 1,
-            lastUpdate: new Date() * 1,
             online: increment(1),
             visits: increment(1),
-            userAgent: navigator.userAgent,
+            ...userObj,
           });
           const data = snapshot.val();
           setUserData(data);
@@ -60,7 +65,12 @@ function App({ firebase, db }) {
             "user does not exist, show registration form and create user in db"
           );
           setShowUserDetailsForm(true);
-          set(userRef, { visits: 1, created: new Date() * 1, online: 1 });
+          set(userRef, {
+            visits: 1,
+            created: currentDate,
+            online: 1,
+            ...userObj,
+          });
         }
 
         onDisconnect(ref(db, `users/${user_.uid}`)).update({
