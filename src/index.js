@@ -11,7 +11,6 @@ const firebaseConfig = {
   databaseURL: "https://users-test-dc75a-default-rtdb.firebaseio.com",
   projectId: "users-test-dc75a",
   storageBucket: "users-test-dc75a.appspot.com",
-  messagingSenderId: "1022742445116",
   appId: "1:1022742445116:web:f80089e9f35b6737e5d739",
 };
 

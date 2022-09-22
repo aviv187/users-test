@@ -8,7 +8,15 @@ function EntrancePage({ db, user, setUserData, closeDetailsPage, userData }) {
     const userRef = ref(db, `users/${user.uid}`);
 
     if (displayName !== userData?.displayName || email !== userData?.email) {
-      await update(userRef, { displayName, email, lastUpdate: new Date() * 1 });
+      try {
+        await update(userRef, {
+          displayName,
+          email,
+          lastUpdate: new Date() * 1,
+        });
+      } catch (error) {
+        console.error(error);
+      }
 
       setUserData((oldObj) => ({ ...oldObj, displayName, email }));
     }
