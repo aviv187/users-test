@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./main.css";
 
 import { onValue, ref } from "firebase/database";
+import UsersList from "../components/usersList";
 import Welcome from "../components/welcome";
 import ChangeDetailsButton from "../components/changeDetailsButton";
 
-function MainPage({ userData, user, db, changeDetails = { changeDetails } }) {
+function MainPage({ userData, user, db, changeDetails }) {
   const [users, setUsers] = useState([]);
+
+  const onlineUsers = useMemo(() => users.filter((u) => u.online > 0), [users]);
 
   useEffect(() => {
     // make sure user exists (user will be undefined when app is first loaded and null if the user is logged out or there was an error signing in))
@@ -35,9 +38,7 @@ function MainPage({ userData, user, db, changeDetails = { changeDetails } }) {
       <Welcome userData={userData} />
       <ChangeDetailsButton onClick={changeDetails} />
 
-      {users.map((user) => {
-        return <div>{user.displayName}</div>;
-      })}
+      <UsersList users={onlineUsers} />
     </div>
   );
 }

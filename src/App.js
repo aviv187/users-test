@@ -65,12 +65,15 @@ function App({ firebase, db }) {
             "user does not exist, show registration form and create user in db"
           );
           setShowUserDetailsForm(true);
-          set(userRef, {
+
+          const newUserObj = {
             visits: 1,
             created: currentDate,
             online: 1,
             ...userObj,
-          });
+          };
+          set(userRef, newUserObj);
+          setUserData(newUserObj);
         }
 
         onDisconnect(ref(db, `users/${user_.uid}`)).update({
