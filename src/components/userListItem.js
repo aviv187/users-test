@@ -7,7 +7,6 @@ function UserListItem({ user, onClick }) {
       <div className="user-card-name ellipsis">
         {user.displayName || "New user"}
       </div>
-      <div className="user-card-email ellipsis">{user.email || "Unknown"}</div>
       <div className="user-card-data ellipsis">
         Last Update:{" "}
         {new Date(user.lastUpdate).toLocaleDateString("en", {
@@ -19,6 +18,8 @@ function UserListItem({ user, onClick }) {
           year: "2-digit",
         })}
       </div>
+
+      <div className="user-card-email ellipsis">{user.email || "Unknown"}</div>
       <div className="user-card-data ellipsis">IP: {user.ip}</div>
     </div>
   );

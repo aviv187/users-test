@@ -30,7 +30,7 @@ function UserDetailsForm({ updateUser, defaultDisplayName, defaultEmail }) {
       />
 
       <div className="input-label">Email:</div>
-      <input type="text" ref={emailRef} defaultValue={defaultEmail} />
+      <input type="email" ref={emailRef} defaultValue={defaultEmail} />
 
       <div className="submit-button-container">
         <button className="submit-button" onClick={onSubmit}>

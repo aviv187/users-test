@@ -6,6 +6,7 @@ You can see a working demo [here](https://users-test-dc75a.web.app/).
 
 - The app was tested only on Chrome.
 - In the task it was asked to refresh the users list every 3s, but because I worked with firebase realtime database it was redundant.
+- For now there is no data validation on email.
 
 ## Run Locally
 

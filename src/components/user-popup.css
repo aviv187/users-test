@@ -1,12 +1,13 @@
 .user-popup-name {
   text-align: center;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   margin-bottom: 20px;
 }
 .user-popup-data {
-  font-size: 14px;
+  font-size: 16px;
   margin-bottom: 5px;
+  padding: 4px 0;
 }
 
 .user-popup-label {

@@ -2,14 +2,18 @@
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 20px;
+  color: white;
 }
 
 .users-list {
-  display: grid;
-  row-gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  flex: 1;
+  display: flex;
   overflow: scroll;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.users-list::-webkit-scrollbar {
+  display: none;
 }
 
 .users-list-container {
