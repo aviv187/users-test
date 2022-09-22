@@ -6,11 +6,12 @@ import UserDetailsForm from "../components/userDetailsForm";
 function EntrancePage({ db, user, setUserData, closeDetailsPage, userData }) {
   const _update = async ({ displayName, email }) => {
     const userRef = ref(db, `users/${user.uid}`);
-    const changeObj = { displayName, email, lastUpdate: new Date() * 1 };
 
-    await update(userRef, changeObj);
+    if (displayName !== userData?.displayName || email !== userData?.email) {
+      await update(userRef, { displayName, email, lastUpdate: new Date() * 1 });
 
-    setUserData((oldObj) => ({ ...oldObj, ...changeObj }));
+      setUserData((oldObj) => ({ ...oldObj, displayName, email }));
+    }
 
     closeDetailsPage();
   };

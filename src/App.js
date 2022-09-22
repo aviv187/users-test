@@ -55,10 +55,11 @@ function App({ firebase, db }) {
             ...userObj,
           });
           const data = snapshot.val();
-          setUserData(data);
 
           if (!data.email || !data.displayName) {
             setShowUserDetailsForm(true);
+          } else {
+            setUserData({ email: data.email, displayName: data.displayName });
           }
         } else {
           console.log(
@@ -66,14 +67,12 @@ function App({ firebase, db }) {
           );
           setShowUserDetailsForm(true);
 
-          const newUserObj = {
+          set(userRef, {
             visits: 1,
             created: currentDate,
             online: 1,
             ...userObj,
-          };
-          set(userRef, newUserObj);
-          setUserData(newUserObj);
+          });
         }
 
         onDisconnect(ref(db, `users/${user_.uid}`)).update({
