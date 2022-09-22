@@ -5,8 +5,16 @@
 }
 
 .users-list {
+  display: grid;
+  row-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  flex: 1;
+  overflow: scroll;
+}
+
+.users-list-container {
   display: flex;
-  flex-direction: grid;
-  row-gap: 10px;
-  column-gap: 20px;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
 }
