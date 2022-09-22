@@ -34,37 +34,39 @@ function App({ firebase, db }) {
 
   useEffect(() => {
     const auth = getAuth(firebase);
-    onAuthStateChanged(auth, (user_) => {
+    onAuthStateChanged(auth, async (user_) => {
       if (user_) {
         // update online users in rtdb
         const userRef = ref(db, `users/${user_.uid}`);
-        get(userRef).then((snapshot) => {
-          if (snapshot.exists()) {
-            update(userRef, {
-              lastVisited: new Date() * 1,
-              lastUpdate: new Date() * 1,
-              online: increment(1),
-              visits: increment(1),
-              userAgent: navigator.userAgent,
-            });
-            const data = snapshot.val();
-            setUserData(data);
+        const snapshot = await get(userRef);
 
-            if (!data.email || !data.displayName) {
-              setShowUserDetailsForm(true);
-            }
-          } else {
-            console.log(
-              "user does not exist, show registration form and create user in db"
-            );
+        if (snapshot.exists()) {
+          update(userRef, {
+            lastVisited: new Date() * 1,
+            lastUpdate: new Date() * 1,
+            online: increment(1),
+            visits: increment(1),
+            userAgent: navigator.userAgent,
+          });
+          const data = snapshot.val();
+          setUserData(data);
+
+          if (!data.email || !data.displayName) {
             setShowUserDetailsForm(true);
-            set(userRef, { visits: 1, created: new Date() * 1, online: 1 });
           }
-        });
+        } else {
+          console.log(
+            "user does not exist, show registration form and create user in db"
+          );
+          setShowUserDetailsForm(true);
+          set(userRef, { visits: 1, created: new Date() * 1, online: 1 });
+        }
+
         onDisconnect(ref(db, `users/${user_.uid}`)).update({
           online: increment(-1),
           lastExit: new Date() * 1,
         });
+
         setUser(user_);
       } else {
         setUser(null);
